@@ -1,19 +1,21 @@
-name: cs-solvers
+name: CMake
 
-on: [push]
+on:
+ push:
+  branches: [master]
+ pull_request:
+  branches: [master]
 
 jobs:
-  test:
+ build_Linux:
 
-    runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup cs-solvers
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.101
-    - name: Build cs-solvers
-      run: dotnet build cs-solvers --configuration Release
-    - name: Test cs-solvers
-      run: dotnet test cs-solvers
+  steps:
+  - uses: actions/checkout@v3
+
+  - name: Configure HelloWorld
+    run: cmake ${{github.workspace}}/hello_world_application/ -B ${{github.workspace}}/hello_world_application/build
+
+  - name: Build HelloWorld
+    run: cmake --build ${{github.workspace}}/hello_world_application/build
