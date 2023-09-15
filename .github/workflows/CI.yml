@@ -44,5 +44,4 @@ jobs:
 
   - name: Build HelloWorld
     run: cmake --build ${{github.workspace}}/hello_world_application/build
-EOF
 
